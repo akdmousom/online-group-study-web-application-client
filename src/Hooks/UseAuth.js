@@ -1,3 +1,4 @@
+// cuatom hook for authentication system
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
