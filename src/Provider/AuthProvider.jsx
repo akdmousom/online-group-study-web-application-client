@@ -1,3 +1,4 @@
+// Authentication context provider
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 import PropTypes from 'prop-types';
