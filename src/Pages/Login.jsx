@@ -67,7 +67,7 @@ const Login = () => {
                             </div>
 
                             <div className="flex justify-center mt-2">
-                                    <button onClick={()=> googleLogin()} className="btn btn-ghost"><FcGoogle fontSize={40}></FcGoogle></button>
+                                    <button onClick={()=> googleLogin()} className="btn btn-ghost"><FcGoogle fontSize={41}></FcGoogle></button>
                                 </div>
                                 <h1 className="text-center text-xs text-secondary">Sign Up With</h1>
                             
