@@ -1,20 +1,61 @@
 // MainLayout
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import Conatainer from './Conatainer';
 import { RiBookOpenFill } from 'react-icons/ri';
+import useAuth from '../../Hooks/UseAuth';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import userImg from '../../assets/images/user.png'
 
 const MainLayout = ({ children }) => {
 
+    const { user, logoutUser, loading } = useAuth();
+    const [userProfile, setUserProfile] = useState();
+
+
+     useEffect(()=>{
+
+        axios.get(`http://localhost:5000/api/v1/users?email=${user?.email}`)
+        .then(response => {
+            setUserProfile(response.data);
+
+        })
+     },[user])
+  
+
+
+    const handleLogOut = () => {
+        logoutUser()
+        return <Navigate to={'/'}></Navigate>
+    }
+
     const navItem = <>
 
-        <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'assignments'}>Assignments</NavLink></li>
-        <li><NavLink to={'create-assignments'}> Create assignments</NavLink></li>
-        <li><NavLink to={'my-assignments'}> My Assignments</NavLink></li>
-        <li><NavLink to={'/login'}>Login</NavLink></li>
+        {
+            loading ? 'loading...' : <>
+                <li><NavLink to={'/'}>Home</NavLink></li>
+                <li><NavLink to={'assignments'}>Assignments</NavLink></li>
+                {
+                    user?.email ? <>
+
+                        <li><NavLink to={'create-assignments'}> Create assignments</NavLink></li>
+                        <li><NavLink to={'my-assignments'}> My Assignments</NavLink></li>
+                        <li><NavLink to={'submitted-assignment'}> Submitted Assignment</NavLink></li>
+                        <li><button onClick={handleLogOut}>Logout</button></li>
+
+                    </> : <li><NavLink to={'/login'}>Login</NavLink></li>
+
+                }
+
+            </>
+        }
+
+
 
     </>
+
+
 
 
     return (
@@ -33,31 +74,30 @@ const MainLayout = ({ children }) => {
 
 
                             <div className="flex-1 flex gap-4 items-center px-2 mx-2">
-                                <RiBookOpenFill size={40} color='#4bc375' />
-                                <div className='text-lg font-bold' >Online Group Study</div>
+                                <RiBookOpenFill size={30} color='#4bc375' />
+                                <div className=' text-sm ' >Online Group Study</div>
+                                <div className="dropdown tooltip md:hidden tooltip-left dropdown-end" data-tip={userProfile?.fullName || user?.displayName}>
+                                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                            <div className="w-10 rounded-full tooltip" data-tip="hello">
+                                                <img className='tooltip' data-tip='hello' src={user?.email ? userProfile?.profileImg || user?.photoURL : userImg} />
+                                            </div>
+                                        </label>
+    
+                                    </div>
                             </div>
 
 
                             <div className="flex-none lg:flex items-center hidden ">
-                                <ul className="menu menu-horizontal">
+                                <ul className="menu flex items-center menu-horizontal">
                                     {/* Navbar menu content here */}
                                     {navItem}
-                                    <div className="dropdown tooltip tooltip-left dropdown-end" data-tip='hello'>
+                                    <div className="dropdown tooltip tooltip-left dropdown-end" data-tip={userProfile?.fullName || user?.displayName}>
                                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                             <div className="w-10 rounded-full tooltip" data-tip="hello">
-                                                <img className='tooltip' data-tip='hello' src="https://images.pexels.com/photos/5553050/pexels-photo-5553050.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+                                                <img className='tooltip' data-tip='hello' src={user?.email ? userProfile?.profileImg || user?.photoURL : userImg} />
                                             </div>
                                         </label>
-                                        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                                            <li>
-                                                <a className="justify-between">
-                                                    Profile
-                                                    <span className="badge">New</span>
-                                                </a>
-                                            </li>
-                                            <li><a>Settings</a></li>
-                                            <li><a>Logout</a></li>
-                                        </ul>
+    
                                     </div>
                                 </ul>
                             </div>
@@ -67,11 +107,14 @@ const MainLayout = ({ children }) => {
                     {children}
                 </div>
                 <div className="drawer-side">
+                    
                     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-72 min-h-full bg-base-200">
                         {/* Sidebar content here */}
                         {navItem}
+                        
                     </ul>
+                    
                 </div>
             </div>
             {/* footer section is added here */}

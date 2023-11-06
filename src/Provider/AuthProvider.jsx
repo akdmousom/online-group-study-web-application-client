@@ -35,12 +35,11 @@ const AuthProvider = ({children}) => {
 
     useEffect(()=>{
         const subscribe = onAuthStateChanged(auth, (currentUser)=>{
-            if (currentUser) {
+           
 
                 setUser(currentUser)
                 setLoading(false)
-                
-            }
+          
         })
         return ()=>{
            return subscribe();

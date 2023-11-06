@@ -5,6 +5,7 @@ import useAuth from "../Hooks/UseAuth";
 import {FcGoogle} from 'react-icons/fc';
 import { useState } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 const Login = () => {
@@ -21,6 +22,17 @@ const Login = () => {
         try {
 
             await loginUser(email,password)
+            .then(res => {
+                const userEmail = res?.user?.email;
+                const payLoad = {
+                    userEmail
+                }
+                console.log(payLoad);
+                axios.post(`http://localhost:5000/api/v1/access-token`,payLoad, {withCredentials:true} )
+                .then(res=>{
+                    console.log(res.data);
+                })
+            })
             toast.success('Login Successfull', {id: toastID})
             navigate('/')
 
