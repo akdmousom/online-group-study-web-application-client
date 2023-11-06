@@ -1,3 +1,4 @@
+// Feature components
 const Feature = () => {
     return (
         <>
