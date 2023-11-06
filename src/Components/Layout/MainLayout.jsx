@@ -7,6 +7,7 @@ import useAuth from '../../Hooks/UseAuth';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import userImg from '../../assets/images/user.png'
+import Footer from '../Footer/Footer';
 
 const MainLayout = ({ children }) => {
 
@@ -117,12 +118,7 @@ const MainLayout = ({ children }) => {
                     
                 </div>
             </div>
-            {/* footer section is added here */}
-            <footer className="footer mt-4 footer-center p-4 bg-base-300 text-base-content">
-                <aside>
-                    <p>Copyright © 2023 - All right reserved by Online Group Study </p>
-                </aside>
-            </footer>
+           <Footer/>
         </>
     );
 };
