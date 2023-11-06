@@ -1,0 +1,27 @@
+[
+    {
+      "title": "You can create assignment",
+      "description": "Create a new assignment by specifying the details, such as title, due date, status, and priority.",
+      "img": "https://i.ibb.co/DDFYGLn/study2.jpg"
+    },
+    {
+      "title": "You can update the assignment",
+      "description": "Edit or modify an existing assignment by changing its title, due date, status, or priority.",
+      "img": "https://i.ibb.co/FwpnBrw/study.jpg"
+    },
+    {
+      "title": "You can give mark",
+      "description": "Assign marks or grades to completed assignments and keep track of student performance.",
+      "img": "https://i.ibb.co/2hvfh9K/3.jpg"
+    },
+    {
+      "title": "You can change submit assignment",
+      "description": "Modify the way you submit assignments, including changing the submission method or requirements.",
+      "img": "https://i.ibb.co/Tbr2fqW/4.jpg"
+    },
+    {
+      "title": "You can handle your assignment panding status",
+      "description": "You can handle your assignment panding status",
+      "img": "https://i.ibb.co/DpQfdtX/5.jpg"
+    }
+  ]
