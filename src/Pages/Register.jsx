@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Conatainer from "../Components/Layout/Conatainer";
 
 import sideImg from '../assets/images/undraw_male_avatar_g98d.svg';
@@ -15,6 +15,7 @@ const Register = () => {
     const [fullName,setFullName] = useState(null)
     const [profileImg,setImg] = useState(null)
     const { createUser,googleLogin } = useAuth();
+    const navigate = useNavigate()
 
     const handleFormSubmit = async (e) => {
 
@@ -39,7 +40,11 @@ const Register = () => {
 
                axios.post('http://localhost:5000/api/v1/users', userData)
                .then(response=>{
-                console.log(response.data);
+                if (response) {
+
+                   return navigate('/')
+                    
+                }
                })
 
 
@@ -56,7 +61,7 @@ const Register = () => {
             return toast.error('Please enter 1 capital later & Special Carecter', { id: toastId })
         }
     
-        console.log(fullName, profileImg);
+  
     
     }
 
