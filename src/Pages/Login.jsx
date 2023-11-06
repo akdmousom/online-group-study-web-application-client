@@ -29,7 +29,7 @@ const Login = () => {
                     }
                     axios.post(`http://localhost:5000/api/v1/access-token`, payLoad, { withCredentials: true })
                         .then(res => {
-                            console.log(res.data);
+                            console.log("my", res.data);
                         })
                     toast.success('Login Successfull', { id: toastID })
                     navigate('/')
