@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import UseAxios from "../Hooks/UseAxios";
 import useAuth from "../Hooks/UseAuth";
 import toast from "react-hot-toast";
-import { AxiosError } from "axios";
 const CreateAssignments = () => {
     const [startDate, setStartDate] = useState(new Date());
     const { user } = useAuth();
