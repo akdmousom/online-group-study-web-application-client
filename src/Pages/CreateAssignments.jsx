@@ -1,23 +1,27 @@
-import axios from "axios";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import UseAxios from "../Hooks/UseAxios";
+import useAuth from "../Hooks/UseAuth";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 const CreateAssignments = () => {
     const [startDate, setStartDate] = useState(new Date());
+    const { user } = useAuth();
     const [formdata, setFormData] = useState({
         title: '',
         description: '',
         thumbnail: '',
         difficultyLevel: '',
         date: startDate,
+        userEmail: user?.email
     })
 
     const Axios = UseAxios();
 
-    
 
- 
+
+
 
     const handleChenge = (e) => {
 
@@ -31,12 +35,35 @@ const CreateAssignments = () => {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = Axios.post('http://localhost:5000/api/v1/assignments', formdata,)
-        console.log(res);
-        
-        e.target.reset()
+        try {
+
+            const res = await Axios.post('/assignments', formdata,)
+
+            if (res.status === 200) {
+
+                toast.success('Assignment Created Successfully')
+
+            }
+
+            if (res.status === 401) {
+
+                toast.error('You are not authorized person to do this task')
+
+            }
+
+
+
+            e.target.reset()
+
+        } catch (error) {
+
+            if (error.response.status === 401) {
+                toast.error('You are not authorized')
+            }
+
+        }
     }
 
     return (
@@ -66,8 +93,8 @@ const CreateAssignments = () => {
                             <label className="label">
                                 <span className="label-text">Difficulty level</span>
                             </label>
-                            <select onChange={handleChenge} name="difficultyLevel" value={formdata.value} className="select select-bordered w-full max-w-xs">
-                                <option disabled selected>Set difficulty level</option>
+                            <select required onChange={handleChenge} name="difficultyLevel" value={formdata.value} className="select select-bordered w-full max-w-xs">
+                                <option defaultValue={'Set difficulty level'}>Set difficulty level</option>
                                 <option>Easy</option>
                                 <option>Medium</option>
                                 <option>Hard</option>
