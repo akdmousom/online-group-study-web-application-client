@@ -1,53 +1,64 @@
-import { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import UseAxios from "../Hooks/UseAxios";
-import useAuth from "../Hooks/UseAuth";
+import ReactDatePicker from "react-datepicker";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-const CreateAssignments = () => {
+import UseAxios from "../Hooks/UseAxios";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+const UpdateAssignment = () => {
     const [startDate, setStartDate] = useState(new Date());
-    const { user } = useAuth();
+    const { id } = useParams();
+    const [upData, setUpData] = useState();
     const navigate = useNavigate()
-    const [formdata, setFormData] = useState({
-        title: '',
-        description: '',
-        thumbnail: '',
-        marks: '',
-        difficultyLevel: '',
-        date: startDate,
-        userEmail: user?.email
+
+    const axios = UseAxios();
+
+    const getSingleData = async () => {
+
+        const res = await axios.get(`/single-assignment/${id}`)
+        setUpData(res?.data)
+        return res
+    }
+
+    const { isLoading } = useQuery({
+        queryKey: ['singleData',upData],
+        queryFn: getSingleData,
     })
 
-    console.log(startDate);
-
-    const Axios = UseAxios();
 
 
-
-
-
-    const handleChenge = (e) => {
-
-        const { name, value } = e.target
-        setFormData({
-            ...formdata,
-            [name]: value,
-        })
-
-
-
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const form = e.target;
+
+        const title = form.title.value
+        const description = form.description.value
+        const thumbnail = form.thumbnail.value
+        const marks = form.marks.value
+        const difficultyLevel = form.difficultyLevel.value
+
+
+
+        const data = {
+            title: title,
+            description: description,
+            thumbnail: thumbnail,
+            marks: marks,
+            difficultyLevel: difficultyLevel,
+            userEmail: upData?.userEmail,
+        }
+
+
+
         try {
 
-            const res = await Axios.post('/assignments', formdata,)
+            const res = await axios.put(`/update-single-assignment?id=${id}`, data)
 
             if (res.status === 200) {
 
-                toast.success('Assignment Created Successfully')
+                toast.success('Assignment Update Successfully')
                 navigate('/assignments')
 
             }
@@ -60,7 +71,7 @@ const CreateAssignments = () => {
 
 
 
-            e.target.reset()
+            
 
         } catch (error) {
 
@@ -69,9 +80,27 @@ const CreateAssignments = () => {
             }
 
         }
+
+
+      
+
+
     }
 
+    if (isLoading) {
+
+        return (
+            <div className="min-h-screen grid justify-center items-center">
+                <span className="loading loading-spinner text-primary"></span>
+            </div>
+        )
+
+    }
+
+
+
     return (
+
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -80,32 +109,31 @@ const CreateAssignments = () => {
                             <label className="label">
                                 <span className="label-text">Title</span>
                             </label>
-                            <input onChange={handleChenge} type="text" name="title" value={formdata.value} placeholder="Title" className="input input-bordered" required />
+                            <input defaultValue={upData?.title} type="text" name="title" placeholder="Title" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Description</span>
                             </label>
-                            <input onChange={handleChenge} type="text" name="description" value={formdata.value} placeholder="Description" className="input input-bordered" required />
+                            <input defaultValue={upData?.description} type="text" name="description" placeholder="Description" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Thumbnail</span>
                             </label>
-                            <input onChange={handleChenge} type="text" name="thumbnail" value={formdata.value} placeholder="Thumbnail" className="input input-bordered" required />
+                            <input defaultValue={upData?.thumbnail} type="text" name="thumbnail" placeholder="Thumbnail" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Marks</span>
                             </label>
-                            <input onChange={handleChenge} type="text" name="marks" value={formdata.value} placeholder="marks" className="input input-bordered" required />
+                            <input defaultValue={upData?.marks} type="text" name="marks" placeholder="Thumbnail" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Difficulty level</span>
                             </label>
-                            <select required onChange={handleChenge} name="difficultyLevel" value={formdata.value} className="select select-bordered w-full max-w-xs">
-                                <option defaultValue={'Set difficulty level'}>Set difficulty level</option>
+                            <select defaultValue={upData?.difficultyLevel} required name="difficultyLevel" className="select select-bordered w-full max-w-xs">
                                 <option>Easy</option>
                                 <option>Medium</option>
                                 <option>Hard</option>
@@ -115,11 +143,11 @@ const CreateAssignments = () => {
                             <label className="label">
                                 <span className="label-text">Date</span>
                             </label>
-                            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                            <ReactDatePicker dateFormat="Pp" selected={startDate} onChange={(date) => setStartDate(date)} />
                         </div>
 
                         <div className="form-control mt-6">
-                            <button type="submit" className="btn btn-primary">Create Assignment</button>
+                            <button type="submit" className="btn btn-primary">Update Assignment</button>
                         </div>
                     </form>
                 </div>
@@ -128,4 +156,4 @@ const CreateAssignments = () => {
     );
 };
 
-export default CreateAssignments;
+export default UpdateAssignment;

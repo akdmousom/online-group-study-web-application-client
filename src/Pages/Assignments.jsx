@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../Hooks/UseAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, Navigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 
 const Assignments = () => {
@@ -13,8 +13,6 @@ const Assignments = () => {
     const { user } = useAuth()
     const [difficultyLevel, setDifficultyLevel] = useState('');
     const [assignment, setAssignment] = useState(null)
-    console.log(assignment);
-
     const userEmail = user?.email
 
     const handleDelete = async (id) => {
@@ -102,11 +100,13 @@ const Assignments = () => {
                                             <div className="badge badge-secondary">{data.difficultyLevel}</div>
                                         </h2>
                                         <p>{data.description}</p>
-                                        <p>{data.marks}</p>
+                                        <p className="text-base font-bold">Full Marks: {data.marks}</p>
+                                        <p className="text-base font-bold">Due Date: {data.date.slice(0,10)}</p>
                                         {
-                                            user ? <div className="card-actions justify-between my-4">
-                                                <button className="btn btn-primary">View Details</button>
-                                                <button onClick={() => handleDelete(data._id)} className="btn btn-secondary">Update</button>
+                                            user ? <div className=" flex gap-2 my-4">
+                                                <button className="btn btn-sm btn-primary">View Details</button>
+                                                <Link to={`/update-assignment/${data._id}`}><button className="btn btn-sm btn-warning">Update</button></Link>
+                                                <button onClick={() => handleDelete(data._id)} className="btn btn-sm btn-error">Delete</button>
                                             </div> : ''
                                         }
                                     </div>
