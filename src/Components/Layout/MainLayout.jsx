@@ -15,15 +15,15 @@ const MainLayout = ({ children }) => {
     const [userProfile, setUserProfile] = useState();
 
 
-     useEffect(()=>{
+    useEffect(() => {
 
         axios.get(`http://localhost:5000/api/v1/users?email=${user?.email}`)
-        .then(response => {
-            setUserProfile(response.data);
+            .then(response => {
+                setUserProfile(response.data);
 
-        })
-     },[user])
-  
+            })
+    }, [user])
+
 
 
     const handleLogOut = () => {
@@ -78,13 +78,13 @@ const MainLayout = ({ children }) => {
                                 <RiBookOpenFill size={30} color='#4bc375' />
                                 <div className=' text-sm ' >Online Group Study</div>
                                 <div className="dropdown tooltip md:hidden tooltip-left dropdown-end" data-tip={userProfile?.fullName || user?.displayName}>
-                                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                            <div className="w-10 rounded-full tooltip" data-tip="hello">
-                                                <img className='tooltip' data-tip='hello' src={user?.email ? userProfile?.profileImg || user?.photoURL : userImg} />
-                                            </div>
-                                        </label>
-    
-                                    </div>
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full tooltip" data-tip="hello">
+                                            <img className='tooltip' data-tip='hello' src={user?.email ? userProfile?.profileImg || user?.photoURL : userImg} />
+                                        </div>
+                                    </label>
+
+                                </div>
                             </div>
 
 
@@ -98,7 +98,7 @@ const MainLayout = ({ children }) => {
                                                 <img className='tooltip' data-tip='hello' src={user?.email ? userProfile?.profileImg || user?.photoURL : userImg} />
                                             </div>
                                         </label>
-    
+
                                     </div>
                                 </ul>
                             </div>
@@ -108,17 +108,17 @@ const MainLayout = ({ children }) => {
                     {children}
                 </div>
                 <div className="drawer-side">
-                    
+
                     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-72 min-h-full bg-base-200">
                         {/* Sidebar content here */}
                         {navItem}
-                        
+
                     </ul>
-                    
+
                 </div>
             </div>
-           <Footer/>
+            <Footer />
         </>
     );
 };

@@ -13,6 +13,7 @@ const Assignments = () => {
     const { user } = useAuth()
     const [difficultyLevel, setDifficultyLevel] = useState('');
     const [assignment, setAssignment] = useState(null)
+
     const userEmail = user?.email
 
     const handleDelete = async (id) => {
@@ -92,7 +93,7 @@ const Assignments = () => {
 
 
                             {
-                                assignment?.map(data => <div key={data._id} className="card w-full object-cover px-4 bg-base-100 shadow-xl">
+                                assignment?.map(data => <div key={data._id} className="card w-full object-cover px-5 gap-2 bg-base-100 shadow-xl">
                                     <figure><img src={data.thumbnail} alt="Shoes" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title">
@@ -102,13 +103,16 @@ const Assignments = () => {
                                         <p>{data.description}</p>
                                         <p className="text-base font-bold">Full Marks: {data.marks}</p>
                                         <p className="text-base font-bold">Due Date: {data.date.slice(0,10)}</p>
+                                        <div className=" flex-wrap flex md:flex-nowrap gap-2">
+                                        <Link className="btn btn-sm  btn-primary" to={`/assignment-details/${data._id}`}>View Details</Link>
                                         {
-                                            user ? <div className=" flex gap-2 my-4">
-                                                <button className="btn btn-sm btn-primary">View Details</button>
-                                                <Link to={`/update-assignment/${data._id}`}><button className="btn btn-sm btn-warning">Update</button></Link>
-                                                <button onClick={() => handleDelete(data._id)} className="btn btn-sm btn-error">Delete</button>
-                                            </div> : ''
+                                            user ? <>
+                                            <Link to={`/update-assignment/${data._id}`}><button className="btn btn-sm btn-warning">Update</button></Link>
+                                            <button onClick={() => handleDelete(data._id)} className="btn btn-sm btn-error">Delete</button></>
+                                                
+                                            : ''
                                         }
+                                         </div>
                                     </div>
                                 </div>)
                             }
