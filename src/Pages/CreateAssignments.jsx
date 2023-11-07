@@ -1,9 +1,11 @@
+import axios from "axios";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import UseAxios from "../Hooks/UseAxios";
 const CreateAssignments = () => {
     const [startDate, setStartDate] = useState(new Date());
-        const [formdata,setFormData] = useState({
+    const [formdata, setFormData] = useState({
         title: '',
         description: '',
         thumbnail: '',
@@ -11,19 +13,30 @@ const CreateAssignments = () => {
         date: startDate,
     })
 
-    const handleChenge = (e) =>{
+    const Axios = UseAxios();
 
-        const {name, value} = e.target
+    
+
+ 
+
+    const handleChenge = (e) => {
+
+        const { name, value } = e.target
         setFormData({
             ...formdata,
-            [name]:value,
+            [name]: value,
         })
+
+
 
     }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formdata);
+        const res = Axios.post('http://localhost:5000/api/v1/assignments', formdata,)
+        console.log(res);
+        
+        e.target.reset()
     }
 
     return (
@@ -50,10 +63,11 @@ const CreateAssignments = () => {
                             <input onChange={handleChenge} type="text" name="thumbnail" value={formdata.value} placeholder="Thumbnail" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
-                        <label className="label">
+                            <label className="label">
                                 <span className="label-text">Difficulty level</span>
                             </label>
                             <select onChange={handleChenge} name="difficultyLevel" value={formdata.value} className="select select-bordered w-full max-w-xs">
+                                <option disabled selected>Set difficulty level</option>
                                 <option>Easy</option>
                                 <option>Medium</option>
                                 <option>Hard</option>
