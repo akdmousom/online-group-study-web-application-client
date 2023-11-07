@@ -11,6 +11,7 @@ const CreateAssignments = () => {
         title: '',
         description: '',
         thumbnail: '',
+        marks: '',
         difficultyLevel: '',
         date: startDate,
         userEmail: user?.email
@@ -87,6 +88,12 @@ const CreateAssignments = () => {
                                 <span className="label-text">Thumbnail</span>
                             </label>
                             <input onChange={handleChenge} type="text" name="thumbnail" value={formdata.value} placeholder="Thumbnail" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Marks</span>
+                            </label>
+                            <input onChange={handleChenge} type="text" name="marks" value={formdata.value} placeholder="Thumbnail" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
