@@ -10,7 +10,7 @@ const Home = () => {
     const [features, setFeatures] = useState();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/v1/features')
+        axios.get('https://online-group-study-server-14kb78srt-arijit-kumar-das-projects.vercel.app/api/v1/features')
             .then(response => {
 
                 setFeatures(response?.data)

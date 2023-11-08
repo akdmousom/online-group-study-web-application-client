@@ -19,7 +19,6 @@ const CreateAssignments = () => {
         userEmail: user?.email
     })
 
-    console.log(startDate);
 
     const Axios = UseAxios();
 

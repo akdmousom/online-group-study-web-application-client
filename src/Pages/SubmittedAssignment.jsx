@@ -19,7 +19,6 @@ const [load, setLoad] = useState(true)
         queryFn: getPanddingAssignment
     })
 
-    console.log(data?.data);
 
     const [feedback, setFeedBack] = useState('')
     const [mark, setMark] = useState('')

@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import useAuth from "../Hooks/UseAuth";
-
+import PropTypes from 'prop-types'
 
 const PrivetRoute = ({ children }) => {
     const {loading} = useContext(AuthContext)
@@ -29,5 +29,9 @@ const PrivetRoute = ({ children }) => {
     
     return children
 };
+
+PrivetRoute.propTypes={
+    children: PropTypes.node,
+}
 
 export default PrivetRoute;

@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState(null);
     const navigate = useNavigate(null);
     const location = useLocation()
-    console.log('MY',location);
+
 
 
     const googleSignIn = () =>{
@@ -25,7 +25,7 @@ const Login = () => {
             const payLoad = {
                 userEmail
             }
-            axios.post(`http://localhost:5000/api/v1/access-token`, payLoad, { withCredentials: true })
+            axios.post(`https://online-group-study-server-14kb78srt-arijit-kumar-das-projects.vercel.app/api/v1/access-token`, payLoad, { withCredentials: true })
                 .then(res => {
                     if (res) {
                         toast.success('Login Successfull', { id: toastID })
@@ -54,7 +54,7 @@ const Login = () => {
                     const payLoad = {
                         userEmail
                     }
-                    axios.post(`http://localhost:5000/api/v1/access-token`, payLoad, { withCredentials: true })
+                    axios.post(`https://online-group-study-server-14kb78srt-arijit-kumar-das-projects.vercel.app/api/v1/access-token`, payLoad, { withCredentials: true })
                         .then(res => {
                             if (res) {
                                 toast.success('Login Successfull', { id: toastID })

@@ -7,11 +7,9 @@ const MyAssignments = () => {
     const axios = UseAxios();
     const { user } = useAuth();
 
-    console.log(user.email);
 
     const getSubmitData = () => {
         const res = axios.get(`/padding-assignment?emailField=${user.email}`)
-        console.log(res);
         return res
     }
 
@@ -29,7 +27,6 @@ const MyAssignments = () => {
             </div>
         )
     }
-    console.log(data.data);
 
     return (
         <Conatainer>
