@@ -100,7 +100,7 @@ const Assignments = () => {
                                             {data.title}
                                             <div className="badge badge-secondary">{data.difficultyLevel}</div>
                                         </h2>
-                                        <p>{data.description}</p>
+                                        
                                         <p className="text-base font-bold">Full Marks: {data.marks}</p>
                                         <p className="text-base font-bold">Due Date: {data.date.slice(0,10)}</p>
                                         <div className=" flex-wrap flex md:flex-nowrap gap-2">
