@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../Hooks/UseAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { motion } from 'framer-motion'
 
 
 const Assignments = () => {
@@ -57,10 +58,10 @@ const Assignments = () => {
         return (
             <div className="min-h-screen grid justify-center items-center">
                 <div className="grid justify-center items-center text-center">
-                   <h1 className="md:text-5xl text-3xl text-center">No Data Found</h1>
-                   
-                        <Link to={'/'}><button className="btn text-center btn-primary">Go Back</button></Link>
-                  
+                    <h1 className="md:text-5xl text-3xl text-center">No Data Found</h1>
+
+                    <Link to={'/'}><button className="btn text-center btn-primary">Go Back</button></Link>
+
                 </div>
             </div>
         )
@@ -88,7 +89,9 @@ const Assignments = () => {
                             <option>Hard</option>
                         </select>
                     </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
+                        <motion.div initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
 
 
 
@@ -100,24 +103,24 @@ const Assignments = () => {
                                             {data.title}
                                             <div className="badge badge-secondary">{data.difficultyLevel}</div>
                                         </h2>
-                                        
+
                                         <p className="text-base font-bold">Full Marks: {data.marks}</p>
-                                        <p className="text-base font-bold">Due Date: {data.date.slice(0,10)}</p>
+                                        <p className="text-base font-bold">Due Date: {data.date.slice(0, 10)}</p>
                                         <div className=" flex-wrap flex md:flex-nowrap gap-2">
-                                        <Link className="btn btn-sm  btn-primary" to={`/assignment-details/${data._id}`}>View Details</Link>
-                                        {
-                                            user ? <>
-                                            <Link to={`/update-assignment/${data._id}`}><button className="btn btn-sm btn-warning">Update</button></Link>
-                                            <button onClick={() => handleDelete(data._id)} className="btn btn-sm btn-error">Delete</button></>
-                                                
-                                            : ''
-                                        }
-                                         </div>
+                                            <Link className="btn btn-sm  btn-primary" to={`/assignment-details/${data._id}`}>View Details</Link>
+                                            {
+                                                user ? <>
+                                                    <Link to={`/update-assignment/${data._id}`}><button className="btn btn-sm btn-warning">Update</button></Link>
+                                                    <button onClick={() => handleDelete(data._id)} className="btn btn-sm btn-error">Delete</button></>
+
+                                                    : ''
+                                            }
+                                        </div>
                                     </div>
                                 </div>)
                             }
 
-                        </div></>
+                        </motion.div></>
                 }
 
 

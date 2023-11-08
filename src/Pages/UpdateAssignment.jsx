@@ -115,7 +115,7 @@ const UpdateAssignment = () => {
                             <label className="label">
                                 <span className="label-text">Description</span>
                             </label>
-                            <input defaultValue={upData?.description} type="text" name="description" placeholder="Description" className="input input-bordered" required />
+                            <input  defaultValue={upData?.description} type="text" name="description" placeholder="Description" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UseAxios from "../Hooks/UseAxios";
 import { useQuery } from "@tanstack/react-query";
 import Conatainer from "../Components/Layout/Conatainer";
@@ -7,6 +7,7 @@ import useAuth from "../Hooks/UseAuth";
 
 const AssignmentDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate()
 
     const [link, setLink] = useState();
     const [des, setDes] = useState();
@@ -22,8 +23,6 @@ const AssignmentDetails = () => {
         queryFn: getSeletAssignment
     })
 
-console.log();
-
     const handleSubmit = async () => {
 
    
@@ -37,9 +36,13 @@ console.log();
         }
          
         const res = await axios.post('/take-assignment',datas )
-        console.log(res);
+        
+        if (res) {
 
-        console.log(datas);
+            return navigate('/submitted-assignment')
+
+            
+        }
 
 
     }
@@ -52,11 +55,13 @@ console.log();
 
                 <div className="px-4">
                     <img src={data?.data.thumbnail} alt="" />
-                    <h1 className=" text-2xl lg:text-4xl mt-5">{data?.data.title}</h1>
+                    <h1 className=" text-2xl lg:text-4xl font-bold mt-5">{data?.data.title}</h1>
                     <hr />
                     <p className="text-2xl mt-5">{data?.data.description}</p>
-                    <p className="text-2xl mt-5">{data?.data.marks}</p>
-                    <p className="text-bold mt-5">{data?.data.difficultyLevel}</p>
+                    <div className="flex gap-5">
+                    <p className="mt-5 font-bold">Mark: {data?.data.marks}</p>
+                    <p className="text-bold font-bold mt-5">Difficulty Level: {data?.data.difficultyLevel}</p>
+                    </div>
                     <div className="my-5">
                         {/* You can open the modal using document.getElementById('ID').showModal() method */}
                         <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>Take Assignment</button>

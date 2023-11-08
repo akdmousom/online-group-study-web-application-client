@@ -26,6 +26,7 @@ const MainLayout = ({ children }) => {
 
 
 
+
     const handleLogOut = () => {
         logoutUser()
         return <Navigate to={'/'}></Navigate>

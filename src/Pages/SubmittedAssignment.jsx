@@ -31,11 +31,15 @@ const [load, setLoad] = useState(true)
     }
 
     const handleSubmit = async (id) => {
-       
-        const res = axios.put(`/update-padding-assignment?id=${id}`,giveMark)
+        
+        const res = await axios.put(`/update-padding-assignment?id=${id}`,giveMark)
+        
+        if (res) {
 
-        console.log(res);
-        setLoad(false)
+            setLoad(false)
+            
+        }
+        
     }
 
 
@@ -80,16 +84,16 @@ const [load, setLoad] = useState(true)
                                                     {/* if there is a button in form, it will close the modal */}
                                                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                                     <div className="grid gap-4">
-                                                        <label >link</label>
+                                                        <label className="font-bold" >link</label>
                                                         <Link>{data?.link}</Link>
-                                                        <label >Short Note</label>
+                                                        <label className="font-bold"  >Short Note</label>
                                                         <p>{data?.sortdes}</p>
                                                         <hr />
-                                                        <label >Feedback</label>
-                                                        <textarea onBlur={(e)=> setFeedBack(e.target.value)} name="feedback" id="" cols="10" rows="5"></textarea>
-                                                        <label >Givven Mark</label>
-                                                        <input onBlur={(e)=> setMark(e.target.value)} type="text" name="mark" id="" />
-                                                        <input onClick={()=>handleSubmit(data?._id)} className="btn btn-primary" type="submit" value="Submit" />
+                                                        <label className="font-bold" >Feedback</label>
+                                                        <textarea placeholder="Give Feedback" onBlur={(e)=> setFeedBack(e.target.value)} name="feedback" id="" cols="10" rows="5"></textarea>
+                                                        <label className="font-bold"  >Givven Mark</label>
+                                                        <input required placeholder="Give Mark Here" onBlur={(e)=> setMark(e.target.value)} type="text" name="mark" id="" />
+                                                        <input required onClick={()=>handleSubmit(data?._id)} className="btn btn-primary" type="submit" value="Submit" />
                                                     </div>
                                                 </form>
 

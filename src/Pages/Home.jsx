@@ -3,7 +3,7 @@ import Conatainer from "../Components/Layout/Conatainer";
 import study from '../assets/images/study.jpg'
 import axios from "axios";
 import Feature from "../Components/Home/Feature";
-
+import { motion } from 'framer-motion'
 
 const Home = () => {
 
@@ -21,7 +21,9 @@ const Home = () => {
 
         <div >
             <Conatainer>
-                <div className="hero min-h-screen" style={{ backgroundImage: `url(${study})` }}>
+                <motion.div initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1 }} className="hero min-h-screen" style={{ backgroundImage: `url(${study})` }}>
                     <div className="hero-overlay bg-opacity-60"></div>
                     <div className="hero-content text-center text-neutral-content">
                         <div className="max-w-md">
@@ -30,11 +32,14 @@ const Home = () => {
                             <button className="btn btn-primary text-white">Explore</button>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
 
                 <h1 className="text-center py-8 text-4xl font-bold ">Our Feature</h1>
-                <div className="w-full grid gap-4 grid-cols-1 md:grid-cols-3">
+                <motion.div
+                    
+
+                    className="w-full grid gap-4 grid-cols-1 md:grid-cols-3">
 
                     {
                         features?.map(feature => <div key={feature?._id} className="card w-full h-full object-cover px-5 bg-base-300 shadow-xl">
@@ -49,9 +54,9 @@ const Home = () => {
 
 
 
-                </div>
+                </motion.div>
 
-                <Feature/>
+                <Feature />
             </Conatainer>
 
         </div>
