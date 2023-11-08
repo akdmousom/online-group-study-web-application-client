@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import Conatainer from "../Components/Layout/Conatainer";
 import { useState } from "react";
 import useAuth from "../Hooks/UseAuth";
-import { data } from "autoprefixer";
 
 const AssignmentDetails = () => {
     const { id } = useParams();
