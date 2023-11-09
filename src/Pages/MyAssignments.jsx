@@ -31,42 +31,36 @@ const MyAssignments = () => {
     return (
         <Conatainer>
 
-            <div className="min-h-screen">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 lg:grid-cols-3">
 
-                <div className="overflow-x-auto my-5">
-                    <table className="table table-xs ">
-                        <thead>
-                            <tr className="text-black">
-                                <th>Sn</th>
-                                <th>Assignment Name</th>
-                                <th>Assignment Marks</th>
-                                <th>Difficulty Level</th>
-                                <th>Status</th>
-                                <th>Your obtain marks</th>
-                                <th>Feedback</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
+                {
+                    data.data.map((data)=><div key={data._id} className="card w-auto object-cover px-4 bg-base-100 shadow-xl">
+                    <div className="card-body">
+                        <h2 className="card-title">
+                        {data?.assignmentData.title}
+                            <div className="badge badge-secondary">{data.status}</div>
+                        </h2>
+                        <p>Feedback: {data.feedback || '---'}</p>
+                        <p>Assignment mark: {data?.assignmentData.marks}</p>
+                        <p>Your obtain mark: {data.mark || '00'}</p>
+                        <div className="flex">
+                            <p>Difficulty level: {data?.assignmentData.difficultyLevel}</p>
                             {
-                                data.data.map((data, idx) => <tr key={data._id}>
-                                    <th>{idx + 1}</th>
-                                    <td>{data?.assignmentData.title}</td>
-                                    <td>{data?.assignmentData.marks}</td>
-                                    <td>{data?.assignmentData.difficultyLevel}</td>
-                                    <td>{data.status}</td>
-                                    <td>{data.mark || '00'}</td>
-                                    <td>{data.feedback || '---'}</td>
-                                </tr>)
+                                data?.assignmentData.difficultyLevel === "Hard" ? <div className="badge badge-outline btn-error"></div> : data?.assignmentData.difficultyLevel === "Easy" ? <div className="badge badge-outline btn-primary"></div> : <div className="badge badge-outline btn-warning"></div>
                             }
-
-                        </tbody>
-
-                    </table>
-                </div>
-
+                            
+                        </div>
+                        <div className="card-actions justify-center mt-4">
+                            
+                            <button className="badge badge-outline">Recheck</button>
+                        </div>
+                    </div>
+                </div>)
+                }
 
             </div>
+
+
         </Conatainer>
     );
 };

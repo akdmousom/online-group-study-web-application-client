@@ -2,7 +2,7 @@ import axios from "axios";
 import useAuth from "./UseAuth";
 
 const instance = axios.create({
-    baseURL: 'https://online-group-study-server-14kb78srt-arijit-kumar-das-projects.vercel.app/api/v1',
+    baseURL: 'http://localhost:5000/api/v1',
     withCredentials: true
   });
 
