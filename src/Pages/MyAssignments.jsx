@@ -67,7 +67,7 @@ const MyAssignments = () => {
                         <h2 className="card-title">
                         {data?.assignmentData.title}
                           {
-                             data.status === "Pandding" ? <div className="badge badge-warning">{data.status}</div> : data.status === "Complete" ? <div className="badge badge-primary text-white">{data.status}</div> : <div className="badge badge-error">{data.status}</div>
+                             data.status === "Pandding" ? <div className="badge badge-warning">{data.status}</div> : data.status === "Complete" ? <div className="badge badge-primary">{data.status}</div> : ''
                           }
                         </h2>
                         <p>Feedback: {data.feedback || '---'}</p>
