@@ -1,7 +1,7 @@
 // Feature components
 const Feature = () => {
     return (
-        <div className="my-5 grid gap-2">
+        <>
             <h1 className="text-center py-8 text-4xl font-bold">Frequently Asked Questions</h1>
             <div className="collapse collapse-arrow bg-base-200">
                 <input type="radio" name="my-accordion-2" />
@@ -30,7 +30,7 @@ const Feature = () => {
                     <p className="text-center">With this you can post your assignments very easily and you can also challenge others</p>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

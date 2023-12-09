@@ -38,7 +38,7 @@ const Register = () => {
 
                 }
 
-               axios.post('http://localhost:5000/api/v1/users', userData)
+               axios.post('https://online-group-study-server-kohl.vercel.app/api/v1/users', userData)
                .then(response=>{
                 if (response) {
 

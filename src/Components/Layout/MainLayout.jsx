@@ -19,7 +19,7 @@ const MainLayout = ({ children }) => {
 
     useEffect(() => {
 
-        axios.get(`http://localhost:5000/api/v1/users?email=${user?.email}`)
+        axios.get(`https://online-group-study-server-kohl.vercel.app/api/v1/users?email=${user?.email}`)
             .then(response => {
                 setUserProfile(response.data);
 
