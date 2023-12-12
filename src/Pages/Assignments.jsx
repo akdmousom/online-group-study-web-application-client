@@ -56,7 +56,7 @@ const Assignments = () => {
         queryFn: getAssignment, handleDelete
     })
 
-    console.log('mydata',data?.data.total);
+
 
     
     const total = data?.data.total
@@ -99,8 +99,7 @@ const Assignments = () => {
     }
 
 
-    console.log("Current page", page);
-    console.log("Need Page",totalPage);
+
     return (
         <div className=" min-h-screen">
 

@@ -12,6 +12,7 @@ import SubmittedAssignment from "../Pages/SubmittedAssignment";
 import UpdateAssignment from "../Pages/UpdateAssignment";
 import AssignmentDetails from "../Pages/AssignmentDetails";
 import Blogs from "../Pages/Blogs";
+import { ContactUs } from "../Pages/Contact";
 
 const Router = createBrowserRouter([
     {
@@ -29,6 +30,11 @@ const Router = createBrowserRouter([
             {
                 path: 'blogs',
                 element: <Blogs/>
+            },{
+
+                path: 'contact',
+                element: <ContactUs/>
+
             },
             {
                 path: 'create-assignments',

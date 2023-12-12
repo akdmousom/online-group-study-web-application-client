@@ -17,7 +17,7 @@ const Blogs = () => {
         queryFn: getBlogPost
     })
 
-    console.log(data);
+
 
 
 

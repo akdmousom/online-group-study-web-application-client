@@ -42,6 +42,7 @@ const MainLayout = ({ children }) => {
                 <li><NavLink to={'/'}>Home</NavLink></li>
                 <li><NavLink to={'assignments'}>Assignments</NavLink></li>
                 <li><NavLink to={'blogs'}>Blogs</NavLink></li>
+                <li><NavLink to={'contact'}>Contact US</NavLink></li>
                 {
                     user?.email ? <>
 

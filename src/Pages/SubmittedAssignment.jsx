@@ -19,7 +19,7 @@ const [load, setLoad] = useState(true)
         queryFn: getPanddingAssignment
     })
 
-    console.log(data);
+
 
 
     const [feedback, setFeedBack] = useState('')
