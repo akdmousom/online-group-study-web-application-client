@@ -14,6 +14,10 @@ const Assignments = () => {
     const { user } = useAuth()
     const [difficultyLevel, setDifficultyLevel] = useState('');
     const [assignment, setAssignment] = useState(null)
+    const [page, setPage] = useState(1);
+    const limit = 10;
+   
+    
 
     const userEmail = user?.email
 
@@ -42,15 +46,22 @@ const Assignments = () => {
     }
 
     const getAssignment = async () => {
-        const res = await axios(`/get-assignments?difficultyField=${difficultyLevel}`)
+        const res = await axios(`/get-assignments?difficultyField=${difficultyLevel}&page=${page}&limit=${limit}`)
         setAssignment(res?.data)
         return res
     }
 
     const { data, isLoading } = useQuery({
-        queryKey: ['assignment', difficultyLevel, assignment],
+        queryKey: ['assignment', difficultyLevel, assignment, page],
         queryFn: getAssignment, handleDelete
     })
+
+    console.log('mydata',data?.data.total);
+
+    
+    const total = data?.data.total
+
+    const totalPage = Math.ceil(total / limit);
 
 
     if (data?.data.length === 0) {
@@ -69,6 +80,27 @@ const Assignments = () => {
     }
 
 
+
+    const handleNext = () => {               
+            
+        if (page === 1) {
+
+            setPage(page + 1)
+            
+        }
+          
+          }
+
+    const handlePrevious = () => {
+        if (page > 1) {
+            setPage(page - 1)
+           
+        }
+    }
+
+
+    console.log("Current page", page);
+    console.log("Need Page",totalPage);
     return (
         <div className=" min-h-screen">
 
@@ -96,7 +128,7 @@ const Assignments = () => {
 
 
                             {
-                                assignment?.map(data => <div key={data._id} className="card w-full object-cover px-5 gap-2 bg-base-100 shadow-xl">
+                                assignment?.result?.map(data => <div key={data._id} className="card w-full object-cover px-5 gap-2 bg-base-100 shadow-xl">
                                     <figure><img src={data.thumbnail} alt="Shoes" /></figure>
                                     <div className="card-body">
                                         <h2 className="card-title">
@@ -120,8 +152,24 @@ const Assignments = () => {
                                 </div>)
                             }
 
+
+
                         </motion.div></>
                 }
+
+                <div className="join flex my-4 justify-center items-center text-center">
+                    <button onClick={handlePrevious} className="join-item btn">◄ </button>
+
+                   {
+                    isLoading ? 'Load' : Array(totalPage).fill(0).map((item, index)=>{
+                        const pageNumber = index +1
+                        return (<button key={index} onClick={()=> setPage(pageNumber)} className={pageNumber === page ? "join-item btn btn-active" : "join-item btn" }>{pageNumber}</button>)
+                       })
+                   }
+                    
+                   
+                    <button onClick={handleNext} className="join-item btn">► </button>
+                </div>
 
 
             </Conatainer>

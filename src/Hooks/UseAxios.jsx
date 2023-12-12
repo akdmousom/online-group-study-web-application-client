@@ -7,7 +7,7 @@ const instance = axios.create({
   });
 
 const UseAxios = () => {
-  const {logoutUser} = useAuth();
+  const {logoutUser} = useAuth()
   instance.interceptors.response.use(function (response) {
     return response;
   }, function (error) {

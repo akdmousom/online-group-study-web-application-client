@@ -41,6 +41,7 @@ const MainLayout = ({ children }) => {
             loading ? 'loading...' : <>
                 <li><NavLink to={'/'}>Home</NavLink></li>
                 <li><NavLink to={'assignments'}>Assignments</NavLink></li>
+                <li><NavLink to={'blogs'}>Blogs</NavLink></li>
                 {
                     user?.email ? <>
 
